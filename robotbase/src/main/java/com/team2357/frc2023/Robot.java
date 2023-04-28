@@ -4,6 +4,11 @@
 
 package com.team2357.frc2023;
 
+import com.team2357.frc2023.controls.OperatorControls;
+import com.team2357.frc2023.subsystems.ArmExtensionSubsystem;
+import com.team2357.frc2023.subsystems.ArmRotationSubsystem;
+import com.team2357.frc2023.subsystems.WristSubsystem;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -18,6 +23,12 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
+  public static OperatorControls m_operatorControls;
+
+  public static ArmRotationSubsystem m_armRotationSubsystem;
+  public static ArmExtensionSubsystem m_armExtensionSubsystem;
+  public static WristSubsystem m_WristSubsystem;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -48,7 +59,10 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    m_armRotationSubsystem.stopMotor();
+    CommandScheduler.getInstance().cancelAll();
+  }
 
   @Override
   public void disabledPeriodic() {}

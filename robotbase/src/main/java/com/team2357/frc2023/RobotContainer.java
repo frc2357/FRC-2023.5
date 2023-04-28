@@ -6,8 +6,10 @@ package com.team2357.frc2023;
 
 import com.team2357.frc2023.Constants.OperatorConstants;
 import com.team2357.frc2023.commands.Autos;
-import com.team2357.frc2023.subsystems.ExampleSubsystem;
+import com.team2357.frc2023.controls.OperatorControls;
+import com.team2357.frc2023.subsystems.*;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -20,14 +22,19 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final XboxController m_operatorController =
+      new XboxController(OperatorConstants.kOperatorControllerPort);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    Robot.m_armRotationSubsystem = new ArmRotationSubsystem();
+    Robot.m_armExtensionSubsystem = new ArmExtensionSubsystem();
+    Robot.m_WristSubsystem = new WristSubsystem();
+
+    Robot.m_operatorControls = new OperatorControls(m_operatorController);
     // Configure the trigger bindings
     configureBindings();
   }
@@ -45,7 +52,6 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 
   /**
