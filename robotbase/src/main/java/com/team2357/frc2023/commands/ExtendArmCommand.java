@@ -10,6 +10,6 @@ public class ExtendArmCommand extends CommandBase{
     }
     @Override
     public void initialize(){
-        Robot.s_armRotationSubsystem.manualRotate(Robot.s_operatorControls.getLeftY());
+        Robot.s_armExtensionSubsystem.manualExtend(Robot.s_operatorControls.getLeftY());
     }
 }
