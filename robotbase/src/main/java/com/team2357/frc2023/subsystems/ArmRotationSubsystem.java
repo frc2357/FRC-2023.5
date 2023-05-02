@@ -1,19 +1,18 @@
 package com.team2357.frc2023.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.team2357.frc2023.Constants;
 import com.team2357.frc2023.Robot;
-import com.team2357.frc2023.RobotContainer;
-import com.team2357.frc2023.controls.OperatorControls;
 
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmRotationSubsystem extends SubsystemBase {
   private CANSparkMax m_rotationMotor;
 
   public ArmRotationSubsystem() {
-    m_rotationMotor = new CANSparkMax(Constants.CAN_ID.ARM_ROTATION_MOTOR, CANSparkMaxLowLevel.MotorType.kBrushless);
+    m_rotationMotor = new CANSparkMax(Constants.CAN_ID.ARM_ROTATION_MOTOR, MotorType.kBrushless);
 
     m_rotationMotor.setSmartCurrentLimit(60, 30);
   }
@@ -34,12 +33,13 @@ public class ArmRotationSubsystem extends SubsystemBase {
   }
 
   public double getMotorCurrent(){
-    return m_rotationMotor.getAppliedOutput();
+    return m_rotationMotor.getOutputCurrent();
   }
 
   @Override
   public void periodic() {
-    manualRotate(Robot.m_operatorControls.getLeftY());
-
+    if(!RobotState.isDisabled()){
+      manualRotate(Robot.m_operatorControls.getLeftY());
+    }
   }
 }

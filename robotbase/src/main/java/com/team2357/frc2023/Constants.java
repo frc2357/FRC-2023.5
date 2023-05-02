@@ -56,11 +56,15 @@ public final class Constants {
 
   public static class ARM_ROTATION{
     public static final double ARM_ROTATION_SPEED_LIMIT_PERCENTAGE = 0.5;
+    public static final double ARM_ROTATION_ZERO_SPEED_PERCENTAGE = 0.4;
+    public static final int  ARM_ROTATION_STALL_AMP_LIMIT = 50;
+    public static final int ARM_ROTATION_FREE_AMP_LIMIT = 30;
 
   }
 
   public static class ARM_EXTENSION{
     public static final double ARM_EXTENSION_SPEED_LIMIT_PERCENTAGE = 0.4;
+    public static final double ARM_EXTENSION_ZERO_SPEED_PERCENTAGE = 0.4;
 
   }
 

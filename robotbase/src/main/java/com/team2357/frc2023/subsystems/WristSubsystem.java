@@ -24,7 +24,7 @@ public class WristSubsystem extends SubsystemBase{
     }
 
     public double getMotorCurrent(){
-        return m_wristMotor.getAppliedOutput();
+        return m_wristMotor.getOutputCurrent();
     }
 
     public void stopMotor(){

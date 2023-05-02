@@ -1,7 +1,7 @@
 package com.team2357.frc2023.controls;
 
 import com.team2357.frc2023.Constants;
-import com.team2357.frc2023.commands.RetractWrist;
+import com.team2357.frc2023.commands.RetractWristCommand;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -54,7 +54,7 @@ public class OperatorControls {
 
     private void mapControls() {
 
-        m_leftTrigger.onTrue(new RetractWrist());
+        m_leftTrigger.onTrue(new RetractWristCommand());
 
     }
 
