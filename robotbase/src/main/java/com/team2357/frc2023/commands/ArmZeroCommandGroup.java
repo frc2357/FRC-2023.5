@@ -4,6 +4,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class ArmZeroCommandGroup extends SequentialCommandGroup{
     public ArmZeroCommandGroup(){
-        addCommands(new ExtendArmToZeroCommand(), new RotateArmToZeroCommand());
+        addCommands(new ZeroArmExtension(), new ZeroArmRotation());
     }
 }

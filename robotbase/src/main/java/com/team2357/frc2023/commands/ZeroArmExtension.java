@@ -5,8 +5,8 @@ import com.team2357.frc2023.Robot;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ExtendArmToZeroCommand extends CommandBase{
-    public ExtendArmToZeroCommand(){
+public class ZeroArmExtension extends CommandBase{
+    public ZeroArmExtension(){
     addRequirements(Robot.s_armExtensionSubsystem);
     }
 
