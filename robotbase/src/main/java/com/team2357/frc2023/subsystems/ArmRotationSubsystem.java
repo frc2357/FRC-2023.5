@@ -1,8 +1,7 @@
 package com.team2357.frc2023.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.team2357.frc2023.Constants;
+import com.team2357.frc2023.Constants.ARM_ROTATION;
 import com.team2357.frc2023.Robot;
 
 import edu.wpi.first.wpilibj.RobotState;
@@ -11,21 +10,21 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ArmRotationSubsystem extends SubsystemBase {
   private CANSparkMax m_rotationMotor;
 
-  public ArmRotationSubsystem() {
-    m_rotationMotor = new CANSparkMax(Constants.CAN_ID.ARM_ROTATION_MOTOR, MotorType.kBrushless);
+  public ArmRotationSubsystem(CANSparkMax rotationMotor) {
+    m_rotationMotor = rotationMotor;
 
-    m_rotationMotor.setSmartCurrentLimit(60, 30);
+    m_rotationMotor.setSmartCurrentLimit(ARM_ROTATION.ARM_ROTATION_STALL_AMP_LIMIT, ARM_ROTATION.ARM_ROTATION_FREE_AMP_LIMIT);
   }
 
-  public void manualRotate(double speed) {
-    if (Math.abs(speed) > Constants.ARM_ROTATION.ARM_ROTATION_SPEED_LIMIT_PERCENTAGE) {
-      speed = Math.copySign(Constants.ARM_ROTATION.ARM_ROTATION_SPEED_LIMIT_PERCENTAGE, speed);
+  public void manualRotate(double speedPercentage) {
+    if (Math.abs(speedPercentage) > ARM_ROTATION.ARM_ROTATION_SPEED_LIMIT_PERCENTAGE) {
+      speedPercentage = Math.copySign(ARM_ROTATION.ARM_ROTATION_SPEED_LIMIT_PERCENTAGE, speedPercentage);
     }
-    m_rotationMotor.set(speed);
+    m_rotationMotor.set(speedPercentage);
   }
 
-  public void rotate(double speed){
-    m_rotationMotor.set(speed);
+  public void rotatePercentageSpeed(double speedPercentage){
+    m_rotationMotor.set(speedPercentage);
   }
 
   public void stopMotor(){
@@ -36,10 +35,16 @@ public class ArmRotationSubsystem extends SubsystemBase {
     return m_rotationMotor.getOutputCurrent();
   }
 
+  public double getEncoder(){
+    return m_rotationMotor.getEncoder().getPosition();
+  }
+
+  public void resetEncoder(){
+    m_rotationMotor.getEncoder().setPosition(0);
+  }
+
   @Override
   public void periodic() {
-    if(!RobotState.isDisabled()){
-      manualRotate(Robot.m_operatorControls.getLeftY());
-    }
+    
   }
 }

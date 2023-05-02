@@ -4,6 +4,8 @@
 
 package com.team2357.frc2023;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.team2357.frc2023.Constants.OperatorConstants;
 import com.team2357.frc2023.commands.Autos;
 import com.team2357.frc2023.controls.OperatorControls;
@@ -30,11 +32,11 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    Robot.m_armRotationSubsystem = new ArmRotationSubsystem();
-    Robot.m_armExtensionSubsystem = new ArmExtensionSubsystem();
-    Robot.m_WristSubsystem = new WristSubsystem();
+    Robot.s_armRotationSubsystem = new ArmRotationSubsystem( new CANSparkMax(Constants.CAN_ID.ARM_ROTATION_MOTOR, MotorType.kBrushless));
+    Robot.s_armExtensionSubsystem = new ArmExtensionSubsystem(new CANSparkMax(Constants.CAN_ID.ARM_EXTENSION_MOTOR, MotorType.kBrushless));
+    Robot.s_WristSubsystem = new WristSubsystem();
 
-    Robot.m_operatorControls = new OperatorControls(m_operatorController);
+    Robot.s_operatorControls = new OperatorControls(m_operatorController);
     // Configure the trigger bindings
     configureBindings();
   }

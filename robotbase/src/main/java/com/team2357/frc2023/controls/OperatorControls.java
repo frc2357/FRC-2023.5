@@ -1,6 +1,6 @@
 package com.team2357.frc2023.controls;
 
-import com.team2357.frc2023.Constants;
+import com.team2357.frc2023.Constants.OPERATOR_CONTROLS;
 import com.team2357.frc2023.commands.RetractWristCommand;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -37,25 +37,25 @@ public class OperatorControls {
     }
 
     public double getLeftY() {
-        double value = m_controller.getLeftY();
-        if (value > Constants.OPERATOR_CONTROLS.OPERATOR_CONTROL_LEFT_Y_DEADZONE) {
-            return value;
-        }
-        return 0;
+        return getDeadzonedValue(m_controller.getLeftY(), OPERATOR_CONTROLS.OPERATOR_CONTROL_LEFT_Y_DEADZONE);
+
     }
 
     public double getRightY() {
-        double value = m_controller.getLeftX();
-        if (value > Constants.OPERATOR_CONTROLS.OPERATOR_CONTROL_RIGHT_Y_DEADZONE) {
-            return value;
-        }
-        return 0;
+        return getDeadzonedValue(m_controller.getRightY(), OPERATOR_CONTROLS.OPERATOR_CONTROL_RIGHT_Y_DEADZONE);
     }
 
     private void mapControls() {
 
         m_leftTrigger.onTrue(new RetractWristCommand());
 
+    }
+
+    private double getDeadzonedValue(double value, double deadzone) {
+        if (Math.abs(value) > deadzone) {
+            return value;
+        }
+        return 0;
     }
 
 }

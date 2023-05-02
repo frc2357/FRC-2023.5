@@ -24,11 +24,11 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  public static OperatorControls m_operatorControls;
+  public static OperatorControls s_operatorControls;
 
-  public static ArmRotationSubsystem m_armRotationSubsystem;
-  public static ArmExtensionSubsystem m_armExtensionSubsystem;
-  public static WristSubsystem m_WristSubsystem;
+  public static ArmRotationSubsystem s_armRotationSubsystem;
+  public static ArmExtensionSubsystem s_armExtensionSubsystem;
+  public static WristSubsystem s_WristSubsystem;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    m_armRotationSubsystem.stopMotor();
+    s_armRotationSubsystem.stopMotor();
     CommandScheduler.getInstance().cancelAll();
   }
 
